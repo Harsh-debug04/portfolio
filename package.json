@@ -1,6 +1,5 @@
 {
   "name": "vite_react_shadcn_ts",
-  "homepage": "https://<Harsh-debug04>.github.io/portfolio", // Add this line
   "private": true,
   "version": "0.0.0",
   "type": "module",
