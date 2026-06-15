@@ -1,4 +1,5 @@
 import React from 'react';
+import Navbar from '@/components/Navbar';
 import CustomCursor from '@/components/CustomCursor';
 import Hero from '@/components/Hero';
 import About from '@/components/About';
@@ -12,10 +13,17 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-background">
       <CustomCursor />
+      <Navbar />
       <Hero />
-      <About />
-      <Skills />
-      <Experience />
+      <div id="about">
+        <About />
+      </div>
+      <div id="skills">
+        <Skills />
+      </div>
+      <div id="experience">
+        <Experience />
+      </div>
       <Projects />
       <Contact />
       <Footer />
