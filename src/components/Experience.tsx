@@ -43,61 +43,74 @@ const Experience = () => {
   ];
 
   return (
-    <section className="py-20 bg-background">
+    <section className="py-16 bg-background">
       <div className="container mx-auto px-6">
         <div className="max-w-4xl mx-auto">
           <ScrollReveal>
             <div className="text-center mb-16">
-              <h2 className="text-display mb-6">Experience</h2>
+              <h2 className="text-display text-gradient mb-6">Experience</h2>
               <p className="text-body-large text-text-secondary max-w-2xl mx-auto">
-                My professional journey building intelligent systems and innovative solutions
+                My professional journey building intelligent AI systems and innovative solutions
               </p>
-              <div className="w-16 h-[1px] bg-border mx-auto mt-6"></div>
+              <div className="w-20 h-1 bg-gradient-primary mx-auto rounded-full mt-6"></div>
             </div>
           </ScrollReveal>
           
-          <div className="space-y-12">
-            {experiences.map((exp, index) => (
-              <ScrollReveal key={exp.company} delay={index * 150}>
-                <div className="border-l-4 border-primary pl-6 md:pl-10 relative">
-                  <div className="absolute w-3 h-3 bg-primary -left-[8px] top-2 rounded-full border-2 border-background"></div>
+          <div className="relative">
+            {/* Continuous Vertical Timeline line */}
+            <div className="absolute top-0 bottom-0 left-6 w-0.5 bg-gradient-to-b from-accent-primary via-accent-secondary to-transparent"></div>
 
-                  <div className="flex flex-col md:flex-row md:justify-between md:items-start mb-4 gap-2">
-                    <div>
-                      <h3 className="text-2xl text-text-primary font-serif mb-1">{exp.position}</h3>
-                      <h4 className="text-lg text-text-secondary font-medium">{exp.company}</h4>
+            <div className="space-y-12">
+              {experiences.map((exp, index) => (
+                <ScrollReveal key={exp.company} delay={index * 200}>
+                  <div className="flex relative z-10">
+                    {/* Timeline dot */}
+                    <div className="flex-shrink-0 w-12 h-12 bg-card border-2 border-accent-primary rounded-full flex items-center justify-center shadow-glow mt-1">
+                      <div className="w-4 h-4 bg-gradient-primary rounded-full"></div>
                     </div>
-                    <span className="text-text-muted text-sm font-medium tracking-wider uppercase">
-                      {exp.period}
-                    </span>
-                  </div>
 
-                  <p className="text-text-secondary mb-6 leading-relaxed max-w-3xl">{exp.description}</p>
+                    {/* Content */}
+                    <div className="ml-8 flex-1">
+                      <div className="bg-glass rounded-xl p-8 border hover:border-accent-primary/50 transition-colors duration-300">
+                        <div className="flex flex-col md:flex-row md:justify-between md:items-start mb-4 gap-2">
+                          <div>
+                            <h3 className="text-2xl text-text-primary font-medium mb-1">{exp.position}</h3>
+                            <h4 className="text-lg text-accent-primary font-medium">{exp.company}</h4>
+                          </div>
+                          <span className="text-text-primary font-medium bg-interactive-base px-4 py-1.5 rounded-full text-sm border border-card-border whitespace-nowrap">
+                            {exp.period}
+                          </span>
+                        </div>
 
-                  <div className="mb-6">
-                    <ul className="space-y-2">
-                      {exp.achievements.map((achievement, i) => (
-                        <li key={i} className="flex items-start">
-                          <span className="text-primary mr-3">-</span>
-                          <span className="text-text-secondary leading-relaxed text-sm md:text-base">{achievement}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
+                        <p className="text-text-secondary mb-6 leading-relaxed">{exp.description}</p>
 
-                  <div className="flex flex-wrap gap-2">
-                    {exp.tech.map((tech) => (
-                      <span
-                        key={tech}
-                        className="px-2 py-1 bg-background-subtle text-text-muted text-xs uppercase tracking-wider border border-border"
-                      >
-                        {tech}
-                      </span>
-                    ))}
+                        <div className="mb-8">
+                          <ul className="space-y-3">
+                            {exp.achievements.map((achievement, i) => (
+                              <li key={i} className="flex items-start">
+                                <div className="w-2 h-2 bg-accent-primary rounded-full mt-2 mr-4 flex-shrink-0"></div>
+                                <span className="text-text-secondary leading-relaxed">{achievement}</span>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+
+                        <div className="flex flex-wrap gap-2">
+                          {exp.tech.map((tech) => (
+                            <span
+                              key={tech}
+                              className="px-3 py-1 bg-interactive-base text-text-muted rounded-md text-sm border border-card-border"
+                            >
+                              {tech}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
                   </div>
-                </div>
-              </ScrollReveal>
-            ))}
+                </ScrollReveal>
+              ))}
+            </div>
           </div>
         </div>
       </div>
