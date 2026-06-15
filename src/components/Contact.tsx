@@ -1,13 +1,54 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
-import { Mail, Github, Linkedin, Download, MapPin, Coffee, FileText } from 'lucide-react';
+import { Input } from '@/components/ui/input';
+import { Textarea } from '@/components/ui/textarea';
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import * as z from 'zod';
+import { Mail, Github, Linkedin, MapPin, Coffee, Send } from 'lucide-react';
 import ScrollReveal from './ScrollReveal';
+import { toast } from 'sonner';
+
+const formSchema = z.object({
+  name: z.string().min(2, {
+    message: "Name must be at least 2 characters.",
+  }),
+  email: z.string().email({
+    message: "Please enter a valid email address.",
+  }),
+  message: z.string().min(10, {
+    message: "Message must be at least 10 characters.",
+  }),
+});
 
 const Contact = () => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      name: "",
+      email: "",
+      message: "",
+    },
+  });
+
+  function onSubmit(values: z.infer<typeof formSchema>) {
+    setIsSubmitting(true);
+    // Simulate API call
+    setTimeout(() => {
+      console.log(values);
+      toast.success("Message sent successfully! I'll get back to you soon.");
+      form.reset();
+      setIsSubmitting(false);
+    }, 1000);
+  }
+
   return (
     <section id="contact" className="py-16 bg-background-subtle">
       <div className="container mx-auto px-6">
-        <div className="max-w-4xl mx-auto">
+        <div className="max-w-6xl mx-auto">
           <ScrollReveal>
             <div className="text-center mb-16">
               <h2 className="text-display text-gradient mb-6">Let's Build Intelligent Solutions</h2>
@@ -19,48 +60,48 @@ const Contact = () => {
             </div>
           </ScrollReveal>
           
-          <div className="grid md:grid-cols-2 gap-12">
+          <div className="grid md:grid-cols-2 gap-12 lg:gap-24">
             <ScrollReveal delay={200}>
               <div>
-                <h3 className="text-2xl text-text-primary mb-6 font-light">Get In Touch</h3>
-                <p className="text-body-large text-text-secondary mb-8">
+                <h3 className="text-3xl text-text-primary mb-6 font-light">Get In Touch</h3>
+                <p className="text-body-large text-text-secondary mb-10">
                   Whether you're looking for an AI engineer to join your team, need help with ML projects, 
                   or want to discuss the latest in AI/ML technology, I'd love to hear from you.
                 </p>
                 
-                <div className="space-y-4 mb-8">
-                  <div className="flex items-center space-x-4">
-                    <div className="w-12 h-12 bg-interactive-base rounded-xl flex items-center justify-center">
-                      <Mail className="w-5 h-5 text-accent-primary" />
+                <div className="space-y-6 mb-10">
+                  <div className="flex items-center space-x-6 bg-card p-4 rounded-xl border border-card-border">
+                    <div className="w-14 h-14 bg-interactive-base rounded-full flex items-center justify-center flex-shrink-0">
+                      <Mail className="w-6 h-6 text-accent-primary" />
                     </div>
                     <div>
-                      <p className="text-text-primary font-medium">Email</p>
+                      <p className="text-text-muted text-sm font-medium mb-1">Email</p>
                       <a 
                         href="mailto:harshpandey145@gmail.com" 
-                        className="text-accent-primary hover:text-accent-glow transition-colors cursor-hover"
+                        className="text-text-primary hover:text-accent-primary transition-colors text-lg font-medium"
                       >
                         harshpandey145@gmail.com
                       </a>
                     </div>
                   </div>
                   
-                  <div className="flex items-center space-x-4">
-                    <div className="w-12 h-12 bg-interactive-base rounded-xl flex items-center justify-center">
-                      <MapPin className="w-5 h-5 text-accent-primary" />
+                  <div className="flex items-center space-x-6 bg-card p-4 rounded-xl border border-card-border">
+                    <div className="w-14 h-14 bg-interactive-base rounded-full flex items-center justify-center flex-shrink-0">
+                      <MapPin className="w-6 h-6 text-accent-primary" />
                     </div>
                     <div>
-                      <p className="text-text-primary font-medium">Phone</p>
-                      <p className="text-text-secondary">+91 73508 54754</p>
+                      <p className="text-text-muted text-sm font-medium mb-1">Location</p>
+                      <p className="text-text-primary text-lg font-medium">India</p>
                     </div>
                   </div>
                   
-                  <div className="flex items-center space-x-4">
-                    <div className="w-12 h-12 bg-interactive-base rounded-xl flex items-center justify-center">
-                      <Coffee className="w-5 h-5 text-accent-primary" />
+                  <div className="flex items-center space-x-6 bg-card p-4 rounded-xl border border-card-border">
+                    <div className="w-14 h-14 bg-interactive-base rounded-full flex items-center justify-center flex-shrink-0">
+                      <Coffee className="w-6 h-6 text-accent-primary" />
                     </div>
                     <div>
-                      <p className="text-text-primary font-medium">Status</p>
-                      <p className="text-text-secondary">Open to AI/ML opportunities</p>
+                      <p className="text-text-muted text-sm font-medium mb-1">Status</p>
+                      <p className="text-text-primary text-lg font-medium">Open to Opportunities</p>
                     </div>
                   </div>
                 </div>
@@ -70,98 +111,87 @@ const Contact = () => {
                     href="https://github.com/Harsh-debug04" 
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="w-12 h-12 bg-interactive-base rounded-xl flex items-center justify-center hover:bg-interactive-hover hover:scale-105 transition-all duration-300 cursor-hover"
+                    className="w-14 h-14 bg-card border border-card-border rounded-full flex items-center justify-center hover:bg-interactive-hover hover:border-accent-primary transition-all duration-300 cursor-hover"
                   >
-                    <Github className="w-5 h-5 text-text-secondary hover:text-accent-primary transition-colors" />
+                    <Github className="w-6 h-6 text-text-secondary hover:text-accent-primary transition-colors" />
                   </a>
                   <a 
                     href="https://www.linkedin.com/in/harshwardhan-pandey-a536851a1/" 
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="w-12 h-12 bg-interactive-base rounded-xl flex items-center justify-center hover:bg-interactive-hover hover:scale-105 transition-all duration-300 cursor-hover"
+                    className="w-14 h-14 bg-card border border-card-border rounded-full flex items-center justify-center hover:bg-interactive-hover hover:border-accent-primary transition-all duration-300 cursor-hover"
                   >
-                    <Linkedin className="w-5 h-5 text-text-secondary hover:text-accent-primary transition-colors" />
+                    <Linkedin className="w-6 h-6 text-text-secondary hover:text-accent-primary transition-colors" />
                   </a>
                 </div>
               </div>
             </ScrollReveal>
             
             <ScrollReveal delay={400}>
-              <div className="bg-glass rounded-xl p-8 border">
-                <h3 className="text-2xl text-text-primary mb-6 font-light">Quick Actions</h3>
+              <div className="bg-glass rounded-2xl p-8 lg:p-10 border shadow-card relative overflow-hidden">
+                <div className="absolute top-0 right-0 w-64 h-64 bg-accent-primary/5 rounded-full blur-3xl -mr-32 -mt-32 pointer-events-none"></div>
+                <h3 className="text-2xl text-text-primary mb-8 font-medium">Send a Message</h3>
                 
-                <div className="space-y-4 mb-8">
-                  <Button 
-                    variant="primary" 
-                    size="lg" 
-                    className="w-full justify-start cursor-hover"
-                    onClick={() => window.location.href = 'mailto:harshpandey145@gmail.com?subject=Let\'s%20collaborate!'}
-                  >
-                    <Mail className="w-5 h-5" />
-                    Send me an email
-                  </Button>
-                  
-                  <a 
-                    href="https://drive.google.com/file/d/1jeGTNAQeiGSRaOWX55ycXaMrAiEo1uwu/view?usp=sharing" 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    className="block"
-                  >
-                    <Button 
-                      variant="secondary" 
-                      size="lg" 
-                      className="w-full justify-start cursor-hover"
-                    >
-                      <FileText className="w-5 h-5" />
-                      Download Resume (PDF)
+                <Form {...form}>
+                  <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6 relative z-10">
+                    <FormField
+                      control={form.control}
+                      name="name"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel className="text-text-primary font-medium">Name</FormLabel>
+                          <FormControl>
+                            <Input placeholder="John Doe" {...field} className="bg-background-subtle border-card-border focus-visible:ring-accent-primary h-12" />
+                          </FormControl>
+                          <FormMessage className="text-red-400" />
+                        </FormItem>
+                      )}
+                    />
+                    <FormField
+                      control={form.control}
+                      name="email"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel className="text-text-primary font-medium">Email</FormLabel>
+                          <FormControl>
+                            <Input placeholder="john@example.com" {...field} className="bg-background-subtle border-card-border focus-visible:ring-accent-primary h-12" />
+                          </FormControl>
+                          <FormMessage className="text-red-400" />
+                        </FormItem>
+                      )}
+                    />
+                    <FormField
+                      control={form.control}
+                      name="message"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel className="text-text-primary font-medium">Message</FormLabel>
+                          <FormControl>
+                            <Textarea
+                              placeholder="How can I help you?"
+                              className="resize-none bg-background-subtle border-card-border focus-visible:ring-accent-primary min-h-[150px]"
+                              {...field}
+                            />
+                          </FormControl>
+                          <FormMessage className="text-red-400" />
+                        </FormItem>
+                      )}
+                    />
+                    <Button type="submit" variant="primary" size="lg" className="w-full" disabled={isSubmitting}>
+                      {isSubmitting ? (
+                        "Sending..."
+                      ) : (
+                        <>
+                          <Send className="w-5 h-5 mr-2" />
+                          Send Message
+                        </>
+                      )}
                     </Button>
-                  </a>
-                  
-                  <a 
-                    href="https://calendar.app.google/bVVD8Fv9cdHqMBMN6" 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    className="block"
-                  >
-                    <Button 
-                      variant="outline" 
-                      size="lg" 
-                      className="w-full justify-start cursor-hover"
-                    >
-                      <Coffee className="w-5 h-5" />
-                      Schedule a coffee chat
-                    </Button>
-                  </a>
-                </div>
-                
-                <div className="bg-interactive-base rounded-lg p-4 border border-card-border">
-                  <h4 className="text-text-primary font-medium mb-2">Response Time</h4>
-                  <p className="text-text-secondary text-sm">
-                    I typically respond to emails within 24 hours. For urgent matters, 
-                    feel free to mention it in the subject line.
-                  </p>
-                </div>
+                  </form>
+                </Form>
               </div>
             </ScrollReveal>
           </div>
-          
-          <ScrollReveal delay={600}>
-            <div className="text-center mt-16">
-              <div className="bg-glass rounded-xl p-8 border max-w-2xl mx-auto">
-                <h3 className="text-2xl text-text-primary mb-4 font-light">Let's Innovate Together</h3>
-                <p className="text-body-large text-text-secondary mb-6">
-                  I believe the best AI solutions come from great collaboration. 
-                  Let's discuss how we can build intelligent systems that make a real impact.
-                </p>
-                <a href="mailto:harshpandey145@gmail.com">
-                  <Button variant="primary" size="lg" className="cursor-hover">
-                    <Mail className="w-5 h-5" />
-                    Start the Conversation
-                  </Button>
-                </a>
-              </div>
-            </div>
-          </ScrollReveal>
         </div>
       </div>
     </section>
