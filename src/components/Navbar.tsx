@@ -24,14 +24,14 @@ const Navbar = () => {
     <nav
       className={`fixed top-0 w-full z-50 transition-all duration-300 ${
         scrolled
-          ? 'bg-background/80 backdrop-blur-md border-b border-card-border py-4'
-          : 'bg-transparent py-6'
+          ? 'bg-background border-b border-border py-4'
+          : 'bg-background py-6'
       }`}
     >
       <div className="container mx-auto px-6">
         <div className="flex justify-between items-center">
-          <a href="#home" className="text-xl font-bold text-text-primary tracking-tighter">
-            Harshwardhan<span className="text-accent-primary">.</span>
+          <a href="#home" className="text-xl font-serif text-text-primary">
+            Harshwardhan<span className="text-primary">.</span>
           </a>
 
           <div className="hidden md:flex space-x-8">
@@ -39,7 +39,7 @@ const Navbar = () => {
               <a
                 key={link.name}
                 href={link.href}
-                className="text-text-secondary hover:text-accent-primary transition-colors text-sm font-medium"
+                className="text-text-secondary hover:text-text-primary transition-colors text-sm font-medium uppercase tracking-wider"
               >
                 {link.name}
               </a>
