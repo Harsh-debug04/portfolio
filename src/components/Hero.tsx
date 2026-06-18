@@ -7,8 +7,11 @@ const Hero = () => {
   return (
     <section 
       id="home"
-      className="min-h-screen flex items-center justify-center relative bg-background"
+      className="min-h-screen flex items-center justify-center relative overflow-hidden animated-bg bg-gradient-to-br from-background via-background-subtle to-background"
     >
+      {/* Animated background overlay */}
+      <div className="absolute inset-0 bg-gradient-glow opacity-60" />
+
       <div className="container mx-auto px-6 relative z-10">
         <div className="max-w-4xl mx-auto text-center pt-20">
           <ScrollReveal>
@@ -16,25 +19,27 @@ const Hero = () => {
               <img 
                 src="/lovable-uploads/944fab42-da9d-4010-bc1d-daae42087542.png" 
                 alt="Harshwardhan Pandey" 
-                className="w-40 h-40 rounded-full mx-auto mb-6 border border-border object-cover"
+                className="w-40 h-40 rounded-full mx-auto mb-6 border-4 border-white/10 shadow-glow animate-float object-cover"
               />
             </div>
           </ScrollReveal>
           
           <ScrollReveal delay={200}>
-            <h1 className="text-hero mb-6 text-text-primary">
-              Harshwardhan Pandey
+            <h1 className="text-hero glow-text mb-6">
+              <span className="bg-gradient-to-r from-accent-primary via-accent-secondary to-accent-primary text-transparent bg-clip-text animate-gradient-flow">
+                Harshwardhan Pandey
+              </span>
             </h1>
           </ScrollReveal>
           
           <ScrollReveal delay={400}>
-            <p className="text-display text-text-secondary mb-4 font-serif italic">
+            <p className="text-display text-white/90 mb-4 font-light">
               AI & Data Science Engineer
             </p>
           </ScrollReveal>
           
           <ScrollReveal delay={600}>
-            <p className="text-body-large text-text-muted mb-8 max-w-2xl mx-auto">
+            <p className="text-body-large text-white/70 mb-8 max-w-2xl mx-auto">
               Architecting intelligent systems that solve complex real-world problems. 
               Specialized in AI/ML, data science, and building automated solutions 
               that make a meaningful impact.
@@ -42,8 +47,8 @@ const Hero = () => {
           </ScrollReveal>
           
           <ScrollReveal delay={800}>
-            <p className="text-lg text-text-secondary mb-12 uppercase tracking-widest text-sm">
-              Me in 10 seconds: AI enthusiast who turns data into insights
+            <p className="text-xl text-accent-glow mb-12 font-mono bg-interactive-base inline-block px-4 py-2 rounded-lg border border-card-border">
+              &gt; Me in 10 seconds: AI enthusiast who turns data into insights
             </p>
           </ScrollReveal>
           
@@ -82,7 +87,7 @@ const Hero = () => {
             <div className="flex justify-center space-x-6 mb-12">
               <a 
                 href="https://github.com/Harsh-debug04" 
-                className="text-text-muted hover:text-text-primary transition-colors"
+                className="text-white/60 hover:text-accent-primary transition-colors cursor-hover hover:scale-110 duration-300"
                 target="_blank"
                 rel="noopener noreferrer"
               >
@@ -90,7 +95,7 @@ const Hero = () => {
               </a>
               <a 
                 href="https://www.linkedin.com/in/harshwardhan-pandey-a536851a1/" 
-                className="text-text-muted hover:text-text-primary transition-colors"
+                className="text-white/60 hover:text-accent-primary transition-colors cursor-hover hover:scale-110 duration-300"
                 target="_blank"
                 rel="noopener noreferrer"
               >
@@ -98,7 +103,7 @@ const Hero = () => {
               </a>
               <a 
                 href="mailto:harshpandey145@gmail.com" 
-                className="text-text-muted hover:text-text-primary transition-colors"
+                className="text-white/60 hover:text-accent-primary transition-colors cursor-hover hover:scale-110 duration-300"
               >
                 <Mail className="w-6 h-6" />
               </a>
@@ -108,8 +113,8 @@ const Hero = () => {
       </div>
       
       {/* Scroll indicator */}
-      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2">
-        <ArrowDown className="w-6 h-6 text-text-muted" />
+      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
+        <ArrowDown className="w-6 h-6 text-white/40" />
       </div>
     </section>
   );
